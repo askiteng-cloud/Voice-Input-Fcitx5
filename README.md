@@ -8,7 +8,7 @@
 
 ### 1. 克隆并安装
 ```bash
-git clone https://github.com/askiteng/Voice-Input-Fcitx5.git
+git clone https://github.com/askiteng-cloud/Voice-Input-Fcitx5.git
 cd Voice-Input-Fcitx5
 ./install.sh
 ```
