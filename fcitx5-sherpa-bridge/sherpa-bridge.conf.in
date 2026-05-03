@@ -1,0 +1,8 @@
+[Addon]
+Name=Sherpa Bridge
+Comment=Bridge for Sherpa ONNX Voice Typing
+Category=Module
+Type=SharedLibrary
+OnDemand=False
+Configurable=False
+Library=sherpa-bridge

@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# C++ Build
+**/build/
+*.so
+*.o
+
+# Models (These should be downloaded via script)
+models/
+sherpa-onnx-streaming-*
+sherpa-onnx-punct-*
+
+# Logs
+*.log
+/tmp/sherpa_server.log
+
+# Assistant & Editor
+.gemini/
+.vscode/
+.antigravity/
+.git/
+*.md.bak
+
+# Test files
+test_asr.py
+test_hotwords.py
+test_hotwords.txt
+scratch/
+brain/
+implementation_plan.md
+task.md
+walkthrough.md
+modify-*.md
+RESEARCH_PLAN.md

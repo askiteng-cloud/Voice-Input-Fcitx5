@@ -1,0 +1,2 @@
+/usr/lib/fcitx5/sherpa-bridge.so
+/usr/share/fcitx5/addon/sherpa-bridge.conf
