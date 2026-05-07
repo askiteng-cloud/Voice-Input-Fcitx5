@@ -15,6 +15,7 @@ systemctl --user daemon-reload
 # 2. 删除插件文件
 rm -f "$HOME/.local/lib/fcitx5/sherpa-bridge.so"
 rm -f "$HOME/.local/share/fcitx5/addon/sherpa-bridge.conf"
+rm -f "$HOME/.fcitx5_sherpa.sock"
 
 # 3. 删除部署目录
 INSTALL_DIR="$HOME/.local/share/fcitx5-sherpa"

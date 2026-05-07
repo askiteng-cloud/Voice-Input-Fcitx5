@@ -22,6 +22,8 @@ fcitx5 -rd
 
 ## 🛠️ 使用说明
 - **开启/关闭语音**：默认快捷键为 `$mod+Shift+v`（需根据你的窗口管理器配置，脚本会提示相关命令）。
+绑定快捷键，仅用来发送切换信号，不重复启动进程 
+bindsym $mod+Shift+v exec --no-startup-id pkill -SIGUSR1 -f server.py
 - **实时日志**：`journalctl --user -u fcitx5-sherpa -f`
 - **卸载**：`./uninstall.sh`
 

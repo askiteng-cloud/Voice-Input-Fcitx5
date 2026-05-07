@@ -14,6 +14,7 @@ set_target_properties(sherpa-bridge PROPERTIES PREFIX "")
 
 target_link_libraries(sherpa-bridge Fcitx5::Core)
 
+set(FCITX5_SHERPA_INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib/fcitx5")
 configure_file(sherpa-bridge.conf.in sherpa-bridge.conf @ONLY)
 
 install(TARGETS sherpa-bridge DESTINATION "lib/fcitx5")

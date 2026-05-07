@@ -26,6 +26,10 @@ Prompt
 Agent
 LLM
 Transformer
+mousepad
+Antigravity
+wechat
+Telegram
 大模型
 提示词
 预训练

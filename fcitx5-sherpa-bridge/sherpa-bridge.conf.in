@@ -5,4 +5,4 @@ Category=Module
 Type=SharedLibrary
 OnDemand=False
 Configurable=False
-Library=sherpa-bridge
+Library=@FCITX5_SHERPA_INSTALL_LIB_DIR@/sherpa-bridge
