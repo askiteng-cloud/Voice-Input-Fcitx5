@@ -1,0 +1,19 @@
+{
+    "asr": {
+        "model_dir": "models/sherpa-onnx-streaming-zipformer-bilingual-zh-en-2023-02-20",
+        "hotwords_file": "hotwords.txt",
+        "hotwords_score": 2.5,
+        "rule1_min_trailing_silence": 2.4,
+        "rule2_min_trailing_silence": 1.2,
+        "rule3_min_utterance_length": 300
+    },
+    "punctuation": {
+        "model_dir": "models/sherpa-onnx-punct-ct-transformer-zh-en-vocab272727-2024-04-12",
+        "enabled": true
+    },
+    "ui": {
+        "auto_timeout": 10.0,
+        "enable_notifications": true,
+        "realtime_itn": true
+    }
+}

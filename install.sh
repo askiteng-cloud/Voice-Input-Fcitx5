@@ -50,7 +50,7 @@ cd ../..
 INSTALL_DIR="$HOME/.local/share/fcitx5-sherpa"
 echo -e "${BLUE}正在部署服务至 $INSTALL_DIR ...${NC}"
 mkdir -p "$INSTALL_DIR/models"
-cp server.py hotwords.txt "$INSTALL_DIR/"
+cp server.py hotwords.txt config.json "$INSTALL_DIR/"
 cp -r models/* "$INSTALL_DIR/models/"
 
 # 5. 配置 Python 虚拟环境
