@@ -35,12 +35,12 @@ def load_config():
         },
         "punctuation": {
             "model_dir": "models/sherpa-onnx-punct-ct-transformer-zh-en-vocab272727-2024-04-12",
-            "enabled": true
+            "enabled": True
         },
         "ui": {
             "auto_timeout": 10.0,
-            "enable_notifications": true,
-            "realtime_itn": true
+            "enable_notifications": True,
+            "realtime_itn": True
         }
     }
 
@@ -108,22 +108,20 @@ def main():
         punct_model = sherpa_onnx.OfflinePunctuation(punct_config)
     
     # 识别模型加载
-    recognizer_config = sherpa_onnx.OnlineRecognizerConfig()
-    recognizer_config.model_config.transducer.encoder = os.path.join(CONFIG["asr"]["model_dir"], "encoder-epoch-99-avg-1.onnx")
-    recognizer_config.model_config.transducer.decoder = os.path.join(CONFIG["asr"]["model_dir"], "decoder-epoch-99-avg-1.onnx")
-    recognizer_config.model_config.transducer.joiner = os.path.join(CONFIG["asr"]["model_dir"], "joiner-epoch-99-avg-1.onnx")
-    recognizer_config.model_config.tokens = os.path.join(CONFIG["asr"]["model_dir"], "tokens.txt")
-    recognizer_config.model_config.num_threads = 1
-    
-    recognizer_config.decoding_method = "modified_beam_search"
-    recognizer_config.hotwords_file = CONFIG["asr"]["hotwords_file"]
-    recognizer_config.hotwords_score = CONFIG["asr"]["hotwords_score"]
-    
-    recognizer_config.endpoint_config.rule1.min_trailing_silence = CONFIG["asr"]["rule1_min_trailing_silence"]
-    recognizer_config.endpoint_config.rule2.min_trailing_silence = CONFIG["asr"]["rule2_min_trailing_silence"]
-    recognizer_config.endpoint_config.rule3.min_utterance_length = CONFIG["asr"]["rule3_min_utterance_length"]
-    
-    recognizer = sherpa_onnx.OnlineRecognizer(recognizer_config)
+    recognizer = sherpa_onnx.OnlineRecognizer.from_transducer(
+        tokens=os.path.join(CONFIG["asr"]["model_dir"], "tokens.txt"),
+        encoder=os.path.join(CONFIG["asr"]["model_dir"], "encoder-epoch-99-avg-1.onnx"),
+        decoder=os.path.join(CONFIG["asr"]["model_dir"], "decoder-epoch-99-avg-1.onnx"),
+        joiner=os.path.join(CONFIG["asr"]["model_dir"], "joiner-epoch-99-avg-1.onnx"),
+        num_threads=1,
+        decoding_method="modified_beam_search",
+        hotwords_file=CONFIG["asr"]["hotwords_file"],
+        hotwords_score=CONFIG["asr"]["hotwords_score"],
+        rule1_min_trailing_silence=CONFIG["asr"]["rule1_min_trailing_silence"],
+        rule2_min_trailing_silence=CONFIG["asr"]["rule2_min_trailing_silence"],
+        rule3_min_utterance_length=CONFIG["asr"]["rule3_min_utterance_length"],
+        enable_endpoint_detection=True,
+    )
     stream = recognizer.create_stream()
 
     def callback(indata, frames, time_info, status):
@@ -138,7 +136,17 @@ def main():
     last_print_tick = 0
 
     try:
-        with sd.InputStream(channels=1, samplerate=16000, dtype="float32", callback=callback):
+        # 尝试使用 pulse/pipewire 设备以获得更好的采样率兼容性
+        audio_device = None
+        for dev in ['pulse', 'pipewire']:
+            try:
+                sd.check_input_settings(device=dev, samplerate=16000, channels=1)
+                audio_device = dev
+                break
+            except Exception:
+                pass
+        
+        with sd.InputStream(device=audio_device, channels=1, samplerate=16000, dtype="float32", callback=callback):
             while True:
                 if ui_needs_update:
                     if is_listening:
@@ -193,9 +201,6 @@ def main():
                 time.sleep(0.02)
     except KeyboardInterrupt:
         print("\nExiting...", flush=True)
-
-if __name__ == "__main__":
-    main()
 
 if __name__ == "__main__":
     main()

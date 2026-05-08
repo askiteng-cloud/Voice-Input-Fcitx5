@@ -57,7 +57,7 @@ cp -r models/* "$INSTALL_DIR/models/"
 echo -e "${BLUE}正在配置 Python 虚拟环境并安装依赖...${NC}"
 python3 -m venv "$INSTALL_DIR/venv"
 "$INSTALL_DIR/venv/bin/pip" install --upgrade pip
-"$INSTALL_DIR/venv/bin/pip" install sherpa-onnx sounddevice cn2an
+"$INSTALL_DIR/venv/bin/pip" install sherpa-onnx sounddevice cn2an numpy
 
 # 6. 配置 Systemd User Service
 echo -e "${BLUE}正在配置 Systemd 用户服务...${NC}"
